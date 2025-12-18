@@ -155,13 +155,20 @@
                             </f:SimpleForm>
                             
                             <!-- Action Buttons -->
-                            <HBox class="sapUiSmallMarginTop">
+                            <HBox class="sapUiSmallMarginTop" justifyContent="End">
                                 <Button
                                     text="Save Results"
                                     type="Emphasized"
                                     press="onSaveResults"
                                     visible="{= !${recordingModel>/isViewOnly}}"
                                     icon="sap-icon://save"
+                                    class="sapUiTinyMarginEnd"/>
+                                <Button
+                                    text="Usage Decision"
+                                    type="Default"
+                                    icon="sap-icon://decision"
+                                    press="onUsageDecisionPress"
+                                    visible="{recordingModel>/lotSelected}"
                                     class="sapUiTinyMarginEnd"/>
                                 <Button
                                     text="Clear"

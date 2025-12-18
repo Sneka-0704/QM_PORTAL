@@ -121,14 +121,14 @@
         },
         {
           "name": "ResultRecording",
-          "pattern": "resultrecording",
+          "pattern": "resultrecording/:inspectionLot:",
           "target": [
             "TargetResultRecording"
           ]
         },
         {
           "name": "UsageDecision",
-          "pattern": "usagedecision",
+          "pattern": "usagedecision/:inspectionLot:",
           "target": [
             "TargetUsageDecision"
           ]

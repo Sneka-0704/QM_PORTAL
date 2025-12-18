@@ -30,9 +30,15 @@ sap.ui.define([
             this.getRouter().getRoute("ResultRecording").attachPatternMatched(this._onRouteMatched, this);
         },
 
-        _onRouteMatched: function () {
+        _onRouteMatched: function (oEvent) {
             this.checkUserSession();
             this._loadUniqueLots();
+
+            var oArgs = oEvent.getParameter("arguments");
+            if (oArgs && oArgs.inspectionLot) {
+                this.byId("lotComboBox").setSelectedKey(oArgs.inspectionLot);
+                this.onLoadLot();
+            }
         },
 
         _loadUniqueLots: function () {
@@ -213,6 +219,19 @@ sap.ui.define([
 
         onClearForm: function () {
             this._clearNewResultsForm();
+        },
+
+        onUsageDecisionPress: function () {
+            var oRecordingModel = this.getModel("recordingModel");
+            var oCurrentLot = oRecordingModel.getProperty("/currentLot");
+
+            if (oCurrentLot && oCurrentLot.InspectionLot) {
+                this.getRouter().navTo("UsageDecision", {
+                    inspectionLot: oCurrentLot.InspectionLot
+                });
+            } else {
+                MessageBox.warning("Please load an inspection lot first.");
+            }
         },
 
         _clearNewResultsForm: function () {

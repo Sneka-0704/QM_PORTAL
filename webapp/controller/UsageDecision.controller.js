@@ -32,9 +32,15 @@ sap.ui.define([
             this.getRouter().getRoute("UsageDecision").attachPatternMatched(this._onRouteMatched, this);
         },
 
-        _onRouteMatched: function () {
+        _onRouteMatched: function (oEvent) {
             this.checkUserSession();
             this._loadUniqueLots();
+
+            var oArgs = oEvent.getParameter("arguments");
+            if (oArgs && oArgs.inspectionLot) {
+                this.byId("lotComboBox").setSelectedKey(oArgs.inspectionLot);
+                this.onLoadLot();
+            }
         },
 
         _loadUniqueLots: function () {

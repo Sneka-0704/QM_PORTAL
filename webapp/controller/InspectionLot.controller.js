@@ -63,13 +63,13 @@ sap.ui.define([
         },
 
         onItemPress: function (oEvent) {
-            // Optional: Navigate to detail view or show more info
-            // For now, we can show a message with lot details
             var oItem = oEvent.getSource();
             var oContext = oItem.getBindingContext();
             var sLotNumber = oContext.getProperty("InspectionLot");
 
-            sap.m.MessageToast.show("Selected Inspection Lot: " + sLotNumber);
+            this.getRouter().navTo("ResultRecording", {
+                inspectionLot: sLotNumber
+            });
         },
 
         /**
