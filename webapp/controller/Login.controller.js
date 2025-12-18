@@ -38,8 +38,8 @@ sap.ui.define([
 
             // Create filters for username and password
             var aFilters = [
-                new Filter("Userid", FilterOperator.EQ, sUsername),
-                new Filter("Password", FilterOperator.EQ, sPassword)
+                new Filter("username", FilterOperator.EQ, sUsername),
+                new Filter("password", FilterOperator.EQ, sPassword)
             ];
 
             // Read from ZQM_LOGIN898 entity set

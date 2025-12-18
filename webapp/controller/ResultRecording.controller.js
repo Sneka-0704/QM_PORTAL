@@ -71,8 +71,8 @@ sap.ui.define([
                     oRecordingModel.setProperty("/lotSelected", true);
 
                     // Check if usage decision has been taken
-                    var sUsageDecision = oData.Usagedecision || "";
-                    var bDecisionTaken = sUsageDecision !== "" && sUsageDecision.toLowerCase() !== "pending";
+                    var sUsageDecision = oData.Status || "";
+                    var bDecisionTaken = sUsageDecision !== "" && sUsageDecision.toLowerCase() !== "pending" && sUsageDecision !== " ";
                     oRecordingModel.setProperty("/isViewOnly", bDecisionTaken);
 
                     // Load previous results for this lot
@@ -93,7 +93,7 @@ sap.ui.define([
             // Filter results by inspection lot
             var oModel = this.getModel();
             var aFilters = [
-                new Filter("Inspectionlot", FilterOperator.EQ, sLotNumber)
+                new Filter("InspectionLot", FilterOperator.EQ, sLotNumber)
             ];
 
             oModel.read("/ZQM_RECORD898", {
@@ -124,17 +124,17 @@ sap.ui.define([
             }
 
             // Prepare payload
+            // Note: ZQM_RECORD898 does not have stock quantity fields in metadata
+            // It contains InspectionLot, Plant, InspectionType, MaterialNumber, Status, etc.
+            // For actual result recording, use the fields available in the metadata
             var oPayload = {
-                Inspectionlot: oCurrentLot.Inspectionlot,
-                Material: oCurrentLot.Material,
-                Plant: oCurrentLot.Plant,
-                UnrestrictedStock: parseFloat(oNewResults.UnrestrictedStock) || 0,
-                BlockedStock: parseFloat(oNewResults.BlockedStock) || 0,
-                ReworkStock: parseFloat(oNewResults.ReworkStock) || 0,
-                RecordingDate: new Date().toISOString(),
-                Lotquantity: oCurrentLot.Lotquantity,
-                Unitofmeasure: oCurrentLot.Unitofmeasure,
-                Usagedecision: oCurrentLot.Usagedecision || ""
+                InspectionLot: oCurrentLot.InspectionLot,
+                MaterialNumber: oCurrentLot.MaterialNumber || "",
+                Plant: oCurrentLot.Plant || "",
+                InspectionType: oCurrentLot.InspectionType || "",
+                Status: "",  // Empty status means no usage decision yet
+                ResultCode: "A"  // Example result code
+                // Stock quantity fields need to be added to backend CDS view
             };
 
             // Show busy indicator

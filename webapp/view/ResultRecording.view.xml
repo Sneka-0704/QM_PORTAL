@@ -34,8 +34,8 @@
                                 class="sapUiTinyMarginEnd">
                                 <items>
                                     <core:Item
-                                        key="{Inspectionlot}"
-                                        text="{Inspectionlot} - {Material}"/>
+                                        key="{InspectionLot}"
+                                        text="{InspectionLot} - {MaterialNumber}"/>
                                 </items>
                             </ComboBox>
                             <Button
@@ -65,23 +65,23 @@
                             columnsM="1">
                             <f:content>
                                 <Label text="Inspection Lot"/>
-                                <Text text="{recordingModel>/currentLot/Inspectionlot}"/>
+                                <Text text="{recordingModel>/currentLot/InspectionLot}"/>
                                 
                                 <Label text="Material"/>
-                                <Text text="{recordingModel>/currentLot/Material}"/>
+                                <Text text="{recordingModel>/currentLot/MaterialNumber}"/>
                                 
                                 <Label text="Plant"/>
                                 <Text text="{recordingModel>/currentLot/Plant}"/>
                                 
                                 <Label text="Total Lot Quantity"/>
                                 <ObjectNumber
-                                    number="{recordingModel>/currentLot/Lotquantity}"
-                                    unit="{recordingModel>/currentLot/Unitofmeasure}"/>
+                                    number="{recordingModel>/currentLot/LotQuantity}"
+                                    unit="{recordingModel>/currentLot/UoM}"/>
                                 
                                 <Label text="Usage Decision Status"/>
                                 <ObjectStatus
-                                    text="{recordingModel>/currentLot/Usagedecision}"
-                                    state="{path: 'recordingModel>/currentLot/Usagedecision', formatter: '.formatUsageDecisionState'}"/>
+                                    text="{recordingModel>/currentLot/Status}"
+                                    state="{path: 'recordingModel>/currentLot/Status', formatter: '.formatUsageDecisionState'}"/>
                             </f:content>
                         </f:SimpleForm>
                     </content>

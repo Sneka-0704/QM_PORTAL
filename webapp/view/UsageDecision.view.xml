@@ -34,8 +34,8 @@
                                 class="sapUiTinyMarginEnd">
                                 <items>
                                     <core:Item
-                                        key="{Inspectionlot}"
-                                        text="{Inspectionlot} - {Material}"/>
+                                        key="{InspectionLotNo}"
+                                        text="{InspectionLotNo} - Material"/>
                                 </items>
                             </ComboBox>
                             <Button
@@ -65,18 +65,18 @@
                             columnsM="1">
                             <f:content>
                                 <Label text="Inspection Lot"/>
-                                <Text text="{usageModel>/currentLot/Inspectionlot}"/>
+                                <Text text="{usageModel>/currentLot/InspectionLotNo}"/>
                                 
                                 <Label text="Material"/>
-                                <Text text="{usageModel>/currentLot/Material}"/>
+                                <Text text="Material Info"/>
                                 
                                 <Label text="Plant"/>
                                 <Text text="{usageModel>/currentLot/Plant}"/>
                                 
                                 <Label text="Total Lot Quantity"/>
                                 <ObjectNumber
-                                    number="{usageModel>/currentLot/Lotquantity}"
-                                    unit="{usageModel>/currentLot/Unitofmeasure}"
+                                    number="{usageModel>/currentLot/LotQuantity}"
+                                    unit="{usageModel>/currentLot/UoM}"
                                     emphasized="true"/>
                             </f:content>
                         </f:SimpleForm>

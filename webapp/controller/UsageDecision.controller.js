@@ -193,19 +193,20 @@ sap.ui.define([
 
             // Prepare payload with updated usage decision
             var oPayload = {
-                Inspectionlot: oLotData.Inspectionlot,
-                Material: oLotData.Material,
-                Plant: oLotData.Plant,
-                Lotquantity: oLotData.Lotquantity,
-                Unitofmeasure: oLotData.Unitofmeasure,
-                UnrestrictedStock: oLotData.UnrestrictedStock,
-                BlockedStock: oLotData.BlockedStock,
-                ReworkStock: oLotData.ReworkStock,
-                Usagedecision: sDecision
+                InspectionLotNo: oLotData.InspectionLotNo,
+                Plant: oLotData.Plant || "",
+                UsageDecisionCode: sDecision === "Approved" ? "A" : "R",  // A for Approved, R for Rejected
+                CodeValuation: sDecision === "Approved" ? "A" : "R",
+                SelectedSet: oLotData.SelectedSet || "",
+                CodeGroup: oLotData.CodeGroup || "",
+                QualityScore: oLotData.QualityScore || 0
+                // Note: Stock quantity fields (UnrestrictedStock, BlockedStock, ReworkStock)
+                // are not present in ZQM_USAGE898 metadata. These may need to be added
+                // to the backend CDS view if required.
             };
 
             var oModel = this.getModel();
-            var sPath = "/ZQM_USAGE898('" + oLotData.Inspectionlot + "')";
+            var sPath = "/ZQM_USAGE898('" + oLotData.InspectionLotNo + "')";
 
             // Update the usage decision
             oModel.update(sPath, oPayload, {

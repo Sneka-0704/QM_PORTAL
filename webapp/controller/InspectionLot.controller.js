@@ -47,8 +47,8 @@ sap.ui.define([
                 // Search across multiple fields
                 var oFilter = new Filter({
                     filters: [
-                        new Filter("Inspectionlot", FilterOperator.Contains, sQuery),
-                        new Filter("Material", FilterOperator.Contains, sQuery),
+                        new Filter("InspectionLot", FilterOperator.Contains, sQuery),
+                        new Filter("MaterialNumber", FilterOperator.Contains, sQuery),
                         new Filter("Plant", FilterOperator.Contains, sQuery)
                     ],
                     and: false
@@ -67,7 +67,7 @@ sap.ui.define([
             // For now, we can show a message with lot details
             var oItem = oEvent.getSource();
             var oContext = oItem.getBindingContext();
-            var sLotNumber = oContext.getProperty("Inspectionlot");
+            var sLotNumber = oContext.getProperty("InspectionLot");
 
             sap.m.MessageToast.show("Selected Inspection Lot: " + sLotNumber);
         },

@@ -77,20 +77,20 @@
                         <ColumnListItem type="Active" press="onItemPress">
                             <cells>
                                 <ObjectIdentifier
-                                    title="{Inspectionlot}"
-                                    text="{MaterialDescription}"/>
-                                <Text text="{Material}"/>
+                                    title="{InspectionLot}"
+                                    text="{MaterialDesc}"/>
+                                <Text text="{MaterialNumber}"/>
                                 <Text text="{Plant}"/>
-                                <Text text="{Inspectiontype}"/>
-                                <Text text="{path: 'Creationdate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd/MM/yyyy'}}"/>
-                                <Text text="{path: 'Startdate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd/MM/yyyy'}}"/>
+                                <Text text="{InspectionType}"/>
+                                <Text text="{path: 'CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd/MM/yyyy'}}"/>
+                                <Text text="{path: 'StartDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd/MM/yyyy'}}"/>
                                 <ObjectNumber
-                                    number="{Lotquantity}"
-                                    unit="{Unitofmeasure}"/>
-                                <Text text="{Unitofmeasure}"/>
+                                    number="{LotQuantity}"
+                                    unit="{UoM}"/>
+                                <Text text="{UoM}"/>
                                 <ObjectStatus
-                                    text="{Usagedecision}"
-                                    state="{path: 'Usagedecision', formatter: '.formatUsageDecisionState'}"/>
+                                    text="{UsageDecisionCode}"
+                                    state="{path: 'UsageDecisionCode', formatter: '.formatUsageDecisionState'}"/>
                             </cells>
                         </ColumnListItem>
                     </items>
