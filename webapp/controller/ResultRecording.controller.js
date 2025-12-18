@@ -21,7 +21,8 @@ sap.ui.define([
                     BlockedStock: 0,
                     ReworkStock: 0
                 },
-                previousResults: []
+                previousResults: [],
+                uniqueLots: []
             });
             this.setModel(oRecordingModel, "recordingModel");
 
@@ -31,6 +32,43 @@ sap.ui.define([
 
         _onRouteMatched: function () {
             this.checkUserSession();
+            this._loadUniqueLots();
+        },
+
+        _loadUniqueLots: function () {
+            var oModel = this.getModel();
+            var oRecordingModel = this.getModel("recordingModel");
+
+            this.getView().setBusy(true);
+
+            oModel.read("/ZQM_RECORD898", {
+                success: function (oData) {
+                    this.getView().setBusy(false);
+                    var aResults = oData.results || [];
+
+                    // Filter for uniqueness and non-empty values
+                    var aUniqueLots = [];
+                    var oProcessedLots = {};
+
+                    aResults.forEach(function (oItem) {
+                        var sLot = oItem.InspectionLot;
+                        if (sLot && !oProcessedLots[sLot]) {
+                            oProcessedLots[sLot] = true;
+                            aUniqueLots.push({
+                                InspectionLot: oItem.InspectionLot,
+                                MaterialNumber: oItem.MaterialNumber || "N/A",
+                                Plant: oItem.Plant || ""
+                            });
+                        }
+                    });
+
+                    oRecordingModel.setProperty("/uniqueLots", aUniqueLots);
+                }.bind(this),
+                error: function (oError) {
+                    this.getView().setBusy(false);
+                    console.error("Failed to load unique lots", oError);
+                }.bind(this)
+            });
         },
 
         onNavBack: function () {

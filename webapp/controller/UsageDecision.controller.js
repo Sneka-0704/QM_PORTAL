@@ -23,7 +23,8 @@ sap.ui.define([
                     blocked: 0,
                     rework: 0,
                     total: 0
-                }
+                },
+                uniqueLots: []
             });
             this.setModel(oUsageModel, "usageModel");
 
@@ -33,6 +34,42 @@ sap.ui.define([
 
         _onRouteMatched: function () {
             this.checkUserSession();
+            this._loadUniqueLots();
+        },
+
+        _loadUniqueLots: function () {
+            var oModel = this.getModel();
+            var oUsageModel = this.getModel("usageModel");
+
+            this.getView().setBusy(true);
+
+            oModel.read("/ZQM_USAGE898", {
+                success: function (oData) {
+                    this.getView().setBusy(false);
+                    var aResults = oData.results || [];
+
+                    // Filter for uniqueness and non-empty values
+                    var aUniqueLots = [];
+                    var oProcessedLots = {};
+
+                    aResults.forEach(function (oItem) {
+                        var sLot = oItem.InspectionLotNo;
+                        if (sLot && !oProcessedLots[sLot]) {
+                            oProcessedLots[sLot] = true;
+                            aUniqueLots.push({
+                                InspectionLotNo: oItem.InspectionLotNo,
+                                Plant: oItem.Plant || ""
+                            });
+                        }
+                    });
+
+                    oUsageModel.setProperty("/uniqueLots", aUniqueLots);
+                }.bind(this),
+                error: function (oError) {
+                    this.getView().setBusy(false);
+                    console.error("Failed to load unique lots", oError);
+                }.bind(this)
+            });
         },
 
         onNavBack: function () {

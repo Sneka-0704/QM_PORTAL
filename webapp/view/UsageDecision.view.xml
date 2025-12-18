@@ -29,13 +29,13 @@
                                 id="lotComboBox"
                                 placeholder="Select an inspection lot..."
                                 width="400px"
-                                items="{/ZQM_USAGE898}"
+                                items="{usageModel>/uniqueLots}"
                                 selectionChange="onLotSelectionChange"
                                 class="sapUiTinyMarginEnd">
                                 <items>
                                     <core:Item
-                                        key="{InspectionLotNo}"
-                                        text="{InspectionLotNo} - Material"/>
+                                        key="{usageModel>InspectionLotNo}"
+                                        text="{usageModel>InspectionLotNo} - {usageModel>Plant}"/>
                                 </items>
                             </ComboBox>
                             <Button
