@@ -1,0 +1,123 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "qmportal898",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.20.0",
+      "toolsId": "125a941d-de3c-41b9-a438-56f5a29e98ce"
+    },
+    "dataSources": {
+      "ZQM_SERVICE_BINDING898_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZQM_SERVICE_BINDING898_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/mainService/ZQM_SERVICE_BINDING898_VAN.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZQM_SERVICE_BINDING898/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "ZQM_SERVICE_BINDING898_VAN"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.14",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "qmportal898.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "qmportal898.view",
+        "async": true,
+        "viewPath": "qmportal898.view"
+      },
+      "routes": [
+        {
+          "name": "Routeapp",
+          "pattern": ":?query:",
+          "target": [
+            "Targetapp"
+          ]
+        }
+      ],
+      "targets": {
+        "Targetapp": {
+          "id": "app",
+          "name": "app"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "qmportal898.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}
