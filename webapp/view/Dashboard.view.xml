@@ -37,16 +37,18 @@
                 </VBox>
                 
                 <!-- Tiles Container -->
-                <TileContainer
-                    id="tileContainer"
-                    tiles="{path: '/tiles'}">
+                <FlexBox
+                    wrap="Wrap"
+                    justifyContent="Start"
+                    class="sapUiSmallMarginTop">
                     
                     <!-- Inspection Lot Tile -->
                     <GenericTile
                         header="Inspection Lot"
                         subheader="View and manage inspection lots"
-                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                        press="onInspectionLotPress">
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
+                        press="onInspectionLotPress"
+                        frameType="TwoByOne">
                         <TileContent>
                             <ImageContent src="sap-icon://inspection"/>
                         </TileContent>
@@ -56,8 +58,9 @@
                     <GenericTile
                         header="Result Recording"
                         subheader="Record inspection results"
-                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                        press="onResultRecordingPress">
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
+                        press="onResultRecordingPress"
+                        frameType="TwoByOne">
                         <TileContent>
                             <ImageContent src="sap-icon://business-objects-experience"/>
                         </TileContent>
@@ -67,14 +70,15 @@
                     <GenericTile
                         header="Usage Decision"
                         subheader="Make approval/rejection decisions"
-                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                        press="onUsageDecisionPress">
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
+                        press="onUsageDecisionPress"
+                        frameType="TwoByOne">
                         <TileContent>
                             <ImageContent src="sap-icon://decision"/>
                         </TileContent>
                     </GenericTile>
                     
-                </TileContainer>
+                </FlexBox>
                 
             </VBox>
         </content>
