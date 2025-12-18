@@ -1,0 +1,78 @@
+<mvc:View
+    controllerName="qmportal898.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    
+    <Page
+        id="loginPage"
+        showHeader="false"
+        class="sapUiContentPadding">
+        
+        <content>
+            <VBox
+                alignItems="Center"
+                justifyContent="Center"
+                class="sapUiMediumMarginTop">
+                
+                <!-- Logo and Title Section -->
+                <VBox
+                    alignItems="Center"
+                    class="sapUiLargeMarginBottom">
+                    <core:Icon
+                        xmlns:core="sap.ui.core"
+                        src="sap-icon://quality-issue"
+                        size="5rem"
+                        color="#0854a0"
+                        class="sapUiSmallMarginBottom"/>
+                    <Title
+                        text="Quality Management Portal"
+                        level="H1"
+                        class="sapUiSmallMarginBottom"/>
+                    <Text
+                        text="Quality Engineer Login"
+                        class="sapUiTinyMarginBottom"/>
+                </VBox>
+                
+                <!-- Login Form -->
+                <VBox
+                    width="400px"
+                    class="loginFormContainer">
+                    <Label
+                        text="Username"
+                        labelFor="usernameInput"
+                        required="true"
+                        class="sapUiTinyMarginBottom"/>
+                    <Input
+                        id="usernameInput"
+                        placeholder="Enter your username"
+                        value="{loginModel>/username}"
+                        width="100%"
+                        class="sapUiSmallMarginBottom"/>
+                    
+                    <Label
+                        text="Password"
+                        labelFor="passwordInput"
+                        required="true"
+                        class="sapUiTinyMarginBottom"/>
+                    <Input
+                        id="passwordInput"
+                        type="Password"
+                        placeholder="Enter your password"
+                        value="{loginModel>/password}"
+                        width="100%"
+                        submit="onLogin"
+                        class="sapUiMediumMarginBottom"/>
+                    
+                    <Button
+                        text="Login"
+                        type="Emphasized"
+                        width="100%"
+                        press="onLogin"
+                        icon="sap-icon://log"/>
+                </VBox>
+                
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

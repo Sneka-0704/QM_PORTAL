@@ -1,0 +1,215 @@
+<mvc:View
+    controllerName="qmportal898.controller.UsageDecision"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    
+    <Page
+        id="usageDecisionPage"
+        title="Usage Decision"
+        showNavButton="true"
+        navButtonPress="onNavBack">
+        
+        <content>
+            <VBox class="sapUiSmallMargin">
+                
+                <!-- Header Section -->
+                <VBox class="sapUiSmallMarginBottom">
+                    <Title text="Usage Decision" level="H2" class="sapUiTinyMarginBottom"/>
+                    <Text text="Make approval or rejection decisions for inspected lots"/>
+                </VBox>
+                
+                <!-- Inspection Lot Selection -->
+                <Panel headerText="Select Inspection Lot" class="sapUiSmallMarginBottom">
+                    <content>
+                        <HBox alignItems="Center">
+                            <ComboBox
+                                id="lotComboBox"
+                                placeholder="Select an inspection lot..."
+                                width="400px"
+                                items="{/ZQM_USAGE898}"
+                                selectionChange="onLotSelectionChange"
+                                class="sapUiTinyMarginEnd">
+                                <items>
+                                    <core:Item
+                                        key="{Inspectionlot}"
+                                        text="{Inspectionlot} - {Material}"/>
+                                </items>
+                            </ComboBox>
+                            <Button
+                                text="Load"
+                                type="Emphasized"
+                                press="onLoadLot"/>
+                        </HBox>
+                    </content>
+                </Panel>
+                
+                <!-- Lot Summary Section -->
+                <Panel
+                    id="lotSummaryPanel"
+                    headerText="Lot Summary"
+                    visible="{usageModel>/lotSelected}"
+                    class="sapUiSmallMarginBottom">
+                    <content>
+                        <f:SimpleForm
+                            editable="false"
+                            layout="ResponsiveGridLayout"
+                            labelSpanXL="4"
+                            labelSpanL="4"
+                            labelSpanM="4"
+                            labelSpanS="12"
+                            columnsXL="2"
+                            columnsL="2"
+                            columnsM="1">
+                            <f:content>
+                                <Label text="Inspection Lot"/>
+                                <Text text="{usageModel>/currentLot/Inspectionlot}"/>
+                                
+                                <Label text="Material"/>
+                                <Text text="{usageModel>/currentLot/Material}"/>
+                                
+                                <Label text="Plant"/>
+                                <Text text="{usageModel>/currentLot/Plant}"/>
+                                
+                                <Label text="Total Lot Quantity"/>
+                                <ObjectNumber
+                                    number="{usageModel>/currentLot/Lotquantity}"
+                                    unit="{usageModel>/currentLot/Unitofmeasure}"
+                                    emphasized="true"/>
+                            </f:content>
+                        </f:SimpleForm>
+                    </content>
+                </Panel>
+                
+                <!-- Recorded Results Breakdown -->
+                <Panel
+                    headerText="Recorded Inspection Results"
+                    visible="{usageModel>/lotSelected}"
+                    class="sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            
+                            <f:SimpleForm
+                                editable="false"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="4"
+                                labelSpanL="4"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                columnsXL="1"
+                                columnsL="1"
+                                columnsM="1">
+                                <f:content>
+                                    <core:Title text="Stock Quantities"/>
+                                    
+                                    <Label text="Unrestricted Stock"/>
+                                    <ObjectNumber
+                                        number="{usageModel>/totalQuantities/unrestricted}"
+                                        unit="{usageModel>/currentLot/Unitofmeasure}"/>
+                                    
+                                    <Label text="Blocked Stock"/>
+                                    <ObjectNumber
+                                        number="{usageModel>/totalQuantities/blocked}"
+                                        unit="{usageModel>/currentLot/Unitofmeasure}"/>
+                                    
+                                    <Label text="Production/Rework Stock"/>
+                                    <ObjectNumber
+                                        number="{usageModel>/totalQuantities/rework}"
+                                        unit="{usageModel>/currentLot/Unitofmeasure}"/>
+                                    
+                                    <core:Title text="Total"/>
+                                    
+                                    <Label text="Total Inspected Quantity"/>
+                                    <ObjectNumber
+                                        number="{usageModel>/totalQuantities/total}"
+                                        unit="{usageModel>/currentLot/Unitofmeasure}"
+                                        emphasized="true"
+                                        state="{usageModel>/validationState}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                            
+                        </VBox>
+                    </content>
+                </Panel>
+                
+                <!-- Validation Status -->
+                <Panel
+                    headerText="Validation Status"
+                    visible="{usageModel>/lotSelected}"
+                    class="sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            
+                            <!-- Success Message -->
+                            <MessageStrip
+                                visible="{usageModel>/validationPassed}"
+                                text="✓ Validation Passed: Total inspected quantity matches lot quantity. You can proceed with the decision."
+                                type="Success"
+                                showIcon="true"
+                                class="sapUiSmallMarginBottom"/>
+                            
+                            <!-- Error Message -->
+                            <MessageStrip
+                                visible="{= !${usageModel>/validationPassed} &amp;&amp; ${usageModel>/lotSelected}}"
+                                text="{usageModel>/validationMessage}"
+                                type="Error"
+                                showIcon="true"
+                                class="sapUiSmallMarginBottom"/>
+                            
+                            <!-- Details -->
+                            <HBox class="sapUiTinyMarginTop">
+                                <Label text="Expected Total:" class="sapUiTinyMarginEnd"/>
+                                <ObjectNumber
+                                    number="{usageModel>/currentLot/Lotquantity}"
+                                    unit="{usageModel>/currentLot/Unitofmeasure}"
+                                    class="sapUiTinyMarginEnd"/>
+                                <Text text=" | " class="sapUiTinyMarginEnd"/>
+                                <Label text="Actual Total:" class="sapUiTinyMarginEnd"/>
+                                <ObjectNumber
+                                    number="{usageModel>/totalQuantities/total}"
+                                    unit="{usageModel>/currentLot/Unitofmeasure}"
+                                    state="{usageModel>/validationState}"/>
+                            </HBox>
+                            
+                        </VBox>
+                    </content>
+                </Panel>
+                
+                <!-- Decision Section -->
+                <Panel
+                    headerText="Make Decision"
+                    visible="{usageModel>/lotSelected}"
+                    class="sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            
+                            <Text
+                                text="Once you approve or reject this lot, the decision cannot be changed."
+                                class="sapUiSmallMarginBottom"/>
+                            
+                            <HBox>
+                                <Button
+                                    text="Approve"
+                                    type="Accept"
+                                    icon="sap-icon://accept"
+                                    press="onApprove"
+                                    enabled="{usageModel>/validationPassed}"
+                                    class="sapUiTinyMarginEnd"/>
+                                <Button
+                                    text="Reject"
+                                    type="Reject"
+                                    icon="sap-icon://decline"
+                                    press="onReject"
+                                    enabled="{usageModel>/validationPassed}"/>
+                            </HBox>
+                            
+                        </VBox>
+                    </content>
+                </Panel>
+                
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

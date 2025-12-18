@@ -1,0 +1,223 @@
+<mvc:View
+    controllerName="qmportal898.controller.ResultRecording"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    
+    <Page
+        id="resultRecordingPage"
+        title="Result Recording"
+        showNavButton="true"
+        navButtonPress="onNavBack">
+        
+        <content>
+            <VBox class="sapUiSmallMargin">
+                
+                <!-- Header Section -->
+                <VBox class="sapUiSmallMarginBottom">
+                    <Title text="Result Recording" level="H2" class="sapUiTinyMarginBottom"/>
+                    <Text text="Record inspection results for quality lots"/>
+                </VBox>
+                
+                <!-- Inspection Lot Selection -->
+                <Panel headerText="Select Inspection Lot" class="sapUiSmallMarginBottom">
+                    <content>
+                        <HBox alignItems="Center">
+                            <ComboBox
+                                id="lotComboBox"
+                                placeholder="Select an inspection lot..."
+                                width="400px"
+                                items="{/ZQM_RECORD898}"
+                                selectionChange="onLotSelectionChange"
+                                class="sapUiTinyMarginEnd">
+                                <items>
+                                    <core:Item
+                                        key="{Inspectionlot}"
+                                        text="{Inspectionlot} - {Material}"/>
+                                </items>
+                            </ComboBox>
+                            <Button
+                                text="Load"
+                                type="Emphasized"
+                                press="onLoadLot"/>
+                        </HBox>
+                    </content>
+                </Panel>
+                
+                <!-- Lot Details Section - Visible only when lot is selected -->
+                <Panel
+                    id="lotDetailsPanel"
+                    headerText="Lot Details"
+                    visible="{recordingModel>/lotSelected}"
+                    class="sapUiSmallMarginBottom">
+                    <content>
+                        <f:SimpleForm
+                            editable="false"
+                            layout="ResponsiveGridLayout"
+                            labelSpanXL="4"
+                            labelSpanL="4"
+                            labelSpanM="4"
+                            labelSpanS="12"
+                            columnsXL="2"
+                            columnsL="2"
+                            columnsM="1">
+                            <f:content>
+                                <Label text="Inspection Lot"/>
+                                <Text text="{recordingModel>/currentLot/Inspectionlot}"/>
+                                
+                                <Label text="Material"/>
+                                <Text text="{recordingModel>/currentLot/Material}"/>
+                                
+                                <Label text="Plant"/>
+                                <Text text="{recordingModel>/currentLot/Plant}"/>
+                                
+                                <Label text="Total Lot Quantity"/>
+                                <ObjectNumber
+                                    number="{recordingModel>/currentLot/Lotquantity}"
+                                    unit="{recordingModel>/currentLot/Unitofmeasure}"/>
+                                
+                                <Label text="Usage Decision Status"/>
+                                <ObjectStatus
+                                    text="{recordingModel>/currentLot/Usagedecision}"
+                                    state="{path: 'recordingModel>/currentLot/Usagedecision', formatter: '.formatUsageDecisionState'}"/>
+                            </f:content>
+                        </f:SimpleForm>
+                    </content>
+                </Panel>
+                
+                <!-- Result Recording Form -->
+                <Panel
+                    id="recordingPanel"
+                    headerText="Record Inspection Results"
+                    visible="{recordingModel>/lotSelected}"
+                    class="sapUiSmallMarginBottom">
+                    
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            
+                            <!-- Editable Mode Message -->
+                            <MessageStrip
+                                visible="{= !${recordingModel>/isViewOnly}}"
+                                text="You can record inspection results. Previous results are preserved."
+                                type="Information"
+                                showIcon="true"
+                                class="sapUiSmallMarginBottom"/>
+                            
+                            <!-- View Only Mode Message -->
+                            <MessageStrip
+                                visible="{recordingModel>/isViewOnly}"
+                                text="Usage decision has been taken. Results are view-only."
+                                type="Warning"
+                                showIcon="true"
+                                class="sapUiSmallMarginBottom"/>
+                            
+                            <f:SimpleForm
+                                editable="{= !${recordingModel>/isViewOnly}}"
+                                layout="ResponsiveGridLayout"
+                                labelSpanXL="3"
+                                labelSpanL="3"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                columnsXL="1"
+                                columnsL="1"
+                                columnsM="1">
+                                <f:content>
+                                    
+                                    <core:Title text="Stock Quantities"/>
+                                    
+                                    <Label text="Unrestricted Stock" required="true"/>
+                                    <Input
+                                        id="unrestrictedInput"
+                                        value="{recordingModel>/newResults/UnrestrictedStock}"
+                                        type="Number"
+                                        enabled="{= !${recordingModel>/isViewOnly}}"
+                                        placeholder="Enter quantity"/>
+                                    
+                                    <Label text="Blocked Stock" required="true"/>
+                                    <Input
+                                        id="blockedInput"
+                                        value="{recordingModel>/newResults/BlockedStock}"
+                                        type="Number"
+                                        enabled="{= !${recordingModel>/isViewOnly}}"
+                                        placeholder="Enter quantity"/>
+                                    
+                                    <Label text="Production/Rework Stock" required="true"/>
+                                    <Input
+                                        id="reworkInput"
+                                        value="{recordingModel>/newResults/ReworkStock}"
+                                        type="Number"
+                                        enabled="{= !${recordingModel>/isViewOnly}}"
+                                        placeholder="Enter quantity"/>
+                                    
+                                </f:content>
+                            </f:SimpleForm>
+                            
+                            <!-- Action Buttons -->
+                            <HBox class="sapUiSmallMarginTop">
+                                <Button
+                                    text="Save Results"
+                                    type="Emphasized"
+                                    press="onSaveResults"
+                                    visible="{= !${recordingModel>/isViewOnly}}"
+                                    icon="sap-icon://save"
+                                    class="sapUiTinyMarginEnd"/>
+                                <Button
+                                    text="Clear"
+                                    press="onClearForm"
+                                    visible="{= !${recordingModel>/isViewOnly}}"/>
+                            </HBox>
+                            
+                        </VBox>
+                    </content>
+                </Panel>
+                
+                <!-- Previously Recorded Results Table -->
+                <Panel
+                    headerText="Previously Recorded Results"
+                    visible="{recordingModel>/lotSelected}"
+                    class="sapUiSmallMarginTop">
+                    <content>
+                        <Table
+                            id="previousResultsTable"
+                            items="{recordingModel>/previousResults}"
+                            mode="None">
+                            <columns>
+                                <Column>
+                                    <Text text="Recording Date"/>
+                                </Column>
+                                <Column hAlign="End">
+                                    <Text text="Unrestricted"/>
+                                </Column>
+                                <Column hAlign="End">
+                                    <Text text="Blocked"/>
+                                </Column>
+                                <Column hAlign="End">
+                                    <Text text="Rework"/>
+                                </Column>
+                                <Column hAlign="End">
+                                    <Text text="Total"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{recordingModel>RecordingDate}"/>
+                                        <ObjectNumber number="{recordingModel>UnrestrictedStock}"/>
+                                        <ObjectNumber number="{recordingModel>BlockedStock}"/>
+                                        <ObjectNumber number="{recordingModel>ReworkStock}"/>
+                                        <ObjectNumber
+                                            number="{= ${recordingModel>UnrestrictedStock} + ${recordingModel>BlockedStock} + ${recordingModel>ReworkStock}}"
+                                            emphasized="true"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+                
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

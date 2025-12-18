@@ -1,0 +1,103 @@
+<mvc:View
+    controllerName="qmportal898.controller.InspectionLot"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    
+    <Page
+        id="inspectionLotPage"
+        title="Inspection Lot"
+        showNavButton="true"
+        navButtonPress="onNavBack">
+        
+        <content>
+            <VBox class="sapUiSmallMargin">
+                
+                <!-- Header Section -->
+                <VBox class="sapUiSmallMarginBottom">
+                    <Title text="Inspection Lot Overview" level="H2" class="sapUiTinyMarginBottom"/>
+                    <Text text="View all inspection lots and their current status"/>
+                </VBox>
+                
+                <!-- Search Toolbar -->
+                <OverflowToolbar>
+                    <SearchField
+                        id="searchField"
+                        placeholder="Search..."
+                        search="onSearch"
+                        width="40%"/>
+                    <ToolbarSpacer/>
+                    <Button
+                        icon="sap-icon://refresh"
+                        text="Refresh"
+                        press="onRefresh"/>
+                </OverflowToolbar>
+                
+                <!-- Inspection Lot Table -->
+                <Table
+                    id="inspectionLotTable"
+                    items="{/ZQM_INSPECT898}"
+                    mode="None"
+                    growing="true"
+                    growingScrollToLoad="true"
+                    class="sapUiSmallMarginTop">
+                    
+                    <columns>
+                        <Column width="12em">
+                            <Text text="Inspection Lot"/>
+                        </Column>
+                        <Column width="12em" demandPopin="true" minScreenWidth="Tablet">
+                            <Text text="Material"/>
+                        </Column>
+                        <Column width="8em" demandPopin="true" minScreenWidth="Tablet">
+                            <Text text="Plant"/>
+                        </Column>
+                        <Column width="10em" demandPopin="true" minScreenWidth="Desktop">
+                            <Text text="Inspection Type"/>
+                        </Column>
+                        <Column width="10em" demandPopin="true" minScreenWidth="Desktop">
+                            <Text text="Creation Date"/>
+                        </Column>
+                        <Column width="10em" demandPopin="true" minScreenWidth="Desktop">
+                            <Text text="Start Date"/>
+                        </Column>
+                        <Column width="8em" hAlign="End">
+                            <Text text="Lot Quantity"/>
+                        </Column>
+                        <Column width="6em" demandPopin="true" minScreenWidth="Tablet">
+                            <Text text="UoM"/>
+                        </Column>
+                        <Column width="10em">
+                            <Text text="Usage Decision"/>
+                        </Column>
+                    </columns>
+                    
+                    <items>
+                        <ColumnListItem type="Active" press="onItemPress">
+                            <cells>
+                                <ObjectIdentifier
+                                    title="{Inspectionlot}"
+                                    text="{MaterialDescription}"/>
+                                <Text text="{Material}"/>
+                                <Text text="{Plant}"/>
+                                <Text text="{Inspectiontype}"/>
+                                <Text text="{path: 'Creationdate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd/MM/yyyy'}}"/>
+                                <Text text="{path: 'Startdate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd/MM/yyyy'}}"/>
+                                <ObjectNumber
+                                    number="{Lotquantity}"
+                                    unit="{Unitofmeasure}"/>
+                                <Text text="{Unitofmeasure}"/>
+                                <ObjectStatus
+                                    text="{Usagedecision}"
+                                    state="{path: 'Usagedecision', formatter: '.formatUsageDecisionState'}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                    
+                </Table>
+                
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

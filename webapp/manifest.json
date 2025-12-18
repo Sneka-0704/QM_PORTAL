@@ -99,17 +99,61 @@
       },
       "routes": [
         {
-          "name": "Routeapp",
-          "pattern": ":?query:",
+          "name": "Login",
+          "pattern": "",
           "target": [
-            "Targetapp"
+            "TargetLogin"
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "pattern": "dashboard",
+          "target": [
+            "TargetDashboard"
+          ]
+        },
+        {
+          "name": "InspectionLot",
+          "pattern": "inspectionlot",
+          "target": [
+            "TargetInspectionLot"
+          ]
+        },
+        {
+          "name": "ResultRecording",
+          "pattern": "resultrecording",
+          "target": [
+            "TargetResultRecording"
+          ]
+        },
+        {
+          "name": "UsageDecision",
+          "pattern": "usagedecision",
+          "target": [
+            "TargetUsageDecision"
           ]
         }
       ],
       "targets": {
-        "Targetapp": {
-          "id": "app",
-          "name": "app"
+        "TargetLogin": {
+          "id": "login",
+          "name": "Login"
+        },
+        "TargetDashboard": {
+          "id": "dashboard",
+          "name": "Dashboard"
+        },
+        "TargetInspectionLot": {
+          "id": "inspectionlot",
+          "name": "InspectionLot"
+        },
+        "TargetResultRecording": {
+          "id": "resultrecording",
+          "name": "ResultRecording"
+        },
+        "TargetUsageDecision": {
+          "id": "usagedecision",
+          "name": "UsageDecision"
         }
       }
     },

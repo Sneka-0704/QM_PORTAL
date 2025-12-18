@@ -1,0 +1,82 @@
+<mvc:View
+    controllerName="qmportal898.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    
+    <Page
+        id="dashboardPage"
+        title="Quality Management Portal"
+        showNavButton="false">
+        
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Title text="Quality Management Portal" level="H3"/>
+                </contentLeft>
+                <contentMiddle>
+                    <Text text="Welcome, {session>/username}" class="sapUiSmallMarginBegin"/>
+                </contentMiddle>
+                <contentRight>
+                    <Button
+                        text="Logout"
+                        icon="sap-icon://log"
+                        press="onLogout"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+        
+        <content>
+            <VBox class="sapUiMediumMarginTop sapUiResponsiveContentPadding">
+                
+                <!-- Dashboard Header -->
+                <VBox class="sapUiMediumMarginBottom">
+                    <Title text="Dashboard" level="H2" class="sapUiSmallMarginBottom"/>
+                    <Text text="Select a module to proceed with quality management tasks"/>
+                </VBox>
+                
+                <!-- Tiles Container -->
+                <TileContainer
+                    id="tileContainer"
+                    tiles="{path: '/tiles'}">
+                    
+                    <!-- Inspection Lot Tile -->
+                    <GenericTile
+                        header="Inspection Lot"
+                        subheader="View and manage inspection lots"
+                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                        press="onInspectionLotPress">
+                        <TileContent>
+                            <ImageContent src="sap-icon://inspection"/>
+                        </TileContent>
+                    </GenericTile>
+                    
+                    <!-- Result Recording Tile -->
+                    <GenericTile
+                        header="Result Recording"
+                        subheader="Record inspection results"
+                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                        press="onResultRecordingPress">
+                        <TileContent>
+                            <ImageContent src="sap-icon://business-objects-experience"/>
+                        </TileContent>
+                    </GenericTile>
+                    
+                    <!-- Usage Decision Tile -->
+                    <GenericTile
+                        header="Usage Decision"
+                        subheader="Make approval/rejection decisions"
+                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                        press="onUsageDecisionPress">
+                        <TileContent>
+                            <ImageContent src="sap-icon://decision"/>
+                        </TileContent>
+                    </GenericTile>
+                    
+                </TileContainer>
+                
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

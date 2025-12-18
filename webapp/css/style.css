@@ -1,1 +1,71 @@
-/* Enter your custom styles here */
+/* Custom styles for QM Portal */
+
+/* Login Form Container */
+.loginFormContainer {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* Login Page Styling */
+#loginPage {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Dashboard Tiles Spacing */
+.sapMGT {
+    margin: 0.5rem;
+}
+
+/* Panel Styling */
+.sapMPanel {
+    margin-bottom: 1rem;
+}
+
+/* Form Field Spacing */
+.sapUiForm .sapUiFormResGridCont {
+    padding: 0.5rem;
+}
+
+/* Table Styling */
+.sapMListTbl {
+    border: 1px solid #e5e5e5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .loginFormContainer {
+        width: 90%;
+        padding: 1rem;
+    }
+}
+
+/* Status Colors */
+.sapMObjStatusSuccess {
+    color: #2b7d2b;
+}
+
+.sapMObjStatusError {
+    color: #bb0000;
+}
+
+.sapMObjStatusWarning {
+    color: #e78c07;
+}
+
+/* Button Spacing */
+.sapMBtn {
+    margin-right: 0.5rem;
+}
+
+/* Custom Title Styling */
+.sapMTitle {
+    font-weight: 600;
+}
+
+/* Content Padding */
+.sapUiResponsiveContentPadding {
+    padding: 1rem;
+}
